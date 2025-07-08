@@ -1,21 +1,35 @@
 {
   "name": "Mini_Payment_Gateway",
   "version": "1.0.0",
-  "description": "",
+  "description": "Optimized payment gateway with performance enhancements",
   "main": "dist/app.js",
   "scripts": {
     "test": "jest",
-    "dev": "ts-node-dev src/app.ts",
+    "dev": "NODE_ENV=development ts-node-dev --respawn --transpile-only src/app.ts",
     "build": "tsc",
-    "start": "node dist/app.js"
+    "build:prod": "NODE_ENV=production tsc",
+    "start": "NODE_ENV=production node dist/app.js",
+    "start:dev": "NODE_ENV=development npm run build && node dist/app.js",
+    "lint": "eslint src/**/*.ts",
+    "clean": "rm -rf dist/",
+    "prebuild": "npm run clean",
+    "audit:fix": "npm audit fix",
+    "performance:test": "npm run build && node -e \"console.time('startup'); require('./dist/app.js'); setTimeout(() => console.timeEnd('startup'), 100)\""
   },
-  "keywords": [],
+  "keywords": ["payment", "gateway", "performance", "optimized"],
   "author": "",
   "license": "ISC",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
   "devDependencies": {
+    "@types/compression": "^1.7.5",
+    "@types/cors": "^2.8.17",
     "@types/express": "^4.17.1",
     "@types/jest": "^30.0.0",
     "@types/supertest": "^6.0.3",
+    "@types/uuid": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "eslint": "^8.3.0",
@@ -26,9 +40,12 @@
   },
   "dependencies": {
     "axios": "^1.6.7",
+    "compression": "^1.7.4",
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",
     "express": "^4.17.1",
+    "express-rate-limit": "^7.4.1",
+    "helmet": "^8.0.0",
     "uuid": "^9.0.0"
   }
 }
