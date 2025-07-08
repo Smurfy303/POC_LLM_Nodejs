@@ -1,3 +1,5 @@
+🚀 Assignment Name : Mid-Level Problem 1: Mini Payment Gateway Proxy with LLM Risk Summary
+
 🚀 Features
 ⚠️ Calculates fraud risk using:
 1. Large amount detection
@@ -10,8 +12,7 @@
 📦 Tech Stack
 Node.js + Express
 TypeScript
-OpenAI API (GPT-3.5)
-Docker (multi-stage build)
+OpenAI API (gpt-4o-mini)
 In-memory transaction store
 
 📂 Project Structure
@@ -31,13 +32,21 @@ Create a .env file in the root:
     PORT=3000
 
 🛠️ Setup
+1. Download the .zip file from github portal
+    - Extract the files
+    - Go to POC_LLM_Nodejs-main
+    - npm install
+
+-------- OR ----------
 1. Clone and install
-    git clone https://github.com/your-repo/payment-router.git
-    cd payment-router
+    git clone git@github.com:Smurfy303/POC_LLM_Nodejs.git
+    cd POC_LLM_Nodejs
     npm install
 
-2. Build & run
-    npm run build
-    npm start
+
+🚀 Run the Project
+In Terminal run below commands,
+    - npm run build
+    - npm start    
 
 
