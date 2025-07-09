@@ -34,17 +34,27 @@ afterAll(() => {
   jest.clearAllMocks();
 });
 
-describe('POST /charge', () => {
-  it('should return 400 if email or amount is missing', async () => {
-    const res = await request(app).post('/charge').send({});
+describe('POST /chargeRequest', () => {
+  it('should return 400 if required fields are missing', async () => {
+    const res = await request(app).post('/chargeRequest').send({});
     expect(res.status).toBe(400);
     expect(res.body).toHaveProperty('error');
+    
+    // Test partial data
+    const res2 = await request(app).post('/chargeRequest').send({
+      amount: 100,
+      email: 'test@example.com'
+    });
+    expect(res2.status).toBe(400);
+    expect(res2.body).toHaveProperty('error');
   });
 
   it('should return 200 with success when fraud score is low', async () => {
-    const res = await request(app).post('/charge').send({
-      email: 'test@example.com',
-      amount: 500
+    const res = await request(app).post('/chargeRequest').send({
+      amount: 500,
+      currency: 'USD',
+      source: 'tok_test',
+      email: 'test@example.com'
     });
 
     expect(res.status).toBe(200);
@@ -62,9 +72,11 @@ describe('POST /charge', () => {
     calculateFraudRisk.mockReturnValueOnce(0.9);
     selectProvider.mockReturnValueOnce(null);
 
-    const res = await request(app).post('/charge').send({
-      email: 'fraud@test.com',
-      amount: 5000
+    const res = await request(app).post('/chargeRequest').send({
+      amount: 5000,
+      currency: 'USD', 
+      source: 'tok_test',
+      email: 'fraud@test.com'
     });
 
     expect(res.status).toBe(403);
@@ -80,9 +92,11 @@ describe('GET /transactions', () => {
     expect(Array.isArray(res1.body)).toBe(true);
 
     // Add a transaction
-    await request(app).post('/charge').send({
-      email: 'get@test.com',
-      amount: 100
+    await request(app).post('/chargeRequest').send({
+      amount: 100,
+      currency: 'USD',
+      source: 'tok_test', 
+      email: 'get@test.com'
     });
 
     const res2 = await request(app).get('/transactions');

@@ -7,11 +7,11 @@ import { v4 as uuidv4 } from 'uuid';
 
 const router = Router();
 
-router.post('/charge', async (req, res): Promise<any> => {
-  const { amount, email } = req.body;
+router.post('/chargeRequest', async (req, res): Promise<any> => {
+  const { amount, currency, source, email } = req.body;
 
-  if (!amount || !email) {
-    return res.status(400).json({ error: 'amount and email are required' });
+  if (!amount || !currency || !source || !email) {
+    return res.status(400).json({ error: 'amount, currency, source, and email are required' });
   }
 
   const riskScore = calculateFraudRisk(amount, email);
@@ -28,6 +28,8 @@ router.post('/charge', async (req, res): Promise<any> => {
     timestamp: new Date().toISOString(),
     email,
     amount,
+    currency,
+    source,
     provider,
     riskScore: parseFloat(riskScore.toFixed(2)),
     status

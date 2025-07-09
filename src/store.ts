@@ -3,6 +3,8 @@ export interface Transaction {
   timestamp: string;
   email: string;
   amount: number;
+  currency: string;
+  source: string;
   provider: string | null;
   riskScore: number;
   status: "success" | "rejected";

@@ -1,0 +1,1 @@
+{"version":3,"file":"provider.js","sourceRoot":"","sources":["../../src/logic/provider.ts"],"names":[],"mappings":";;;AAEA,SAAgB,cAAc,CAAC,KAAa;IAC1C,IAAI,KAAK,IAAI,GAAG;QAAE,OAAO,IAAI,CAAC,CAAC,mCAAmC;IAClE,IAAI,KAAK,GAAG,IAAI;QAAE,OAAO,QAAQ,CAAC,CAAC,2BAA2B;IAC9D,OAAO,QAAQ,CAAC,CAAC,8BAA8B;AACjD,CAAC;AAJD,wCAIC"}
